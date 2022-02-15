@@ -217,12 +217,12 @@ function collectResults(responseJson) {
     loader.parse( buffer, function ( object ) 
     {
         // debug 
-        /*
+        
         object.traverse(child => {
           if (child.material !== undefined)
             child.material = new THREE.MeshNormalMaterial()
         }, false)
-        */
+        
 
         // clear objects from scene. do this here to avoid blink
         scene.traverse(child => {
