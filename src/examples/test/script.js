@@ -112,12 +112,12 @@ function collectResults(responseJson) {
   const buffer = new Uint8Array(doc.toByteArray()).buffer
   loader.parse(buffer, function (object) {
 
-    // clear objects from scene
-    scene.traverse(child => {
-      if (child.userData.hasOwnProperty('objectType') && child.userData.objectType === 'File3dm') {
-        scene.remove(child)
-      }
-    })
+    // // clear objects from scene
+    // scene.traverse(child => {
+    //   if (child.userData.hasOwnProperty('objectType') && child.userData.objectType === 'File3dm') {
+    //     scene.remove(child)
+    //   }
+    // })
 
     ///////////////////////////////////////////////////////////////////////
 
