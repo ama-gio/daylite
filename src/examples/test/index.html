@@ -201,6 +201,7 @@ function collectResults(responseJson) {
           const rhinoObject = decodeItem(branch[j])
           if (rhinoObject !== null) {
             doc.objects().add(rhinoObject, null)
+            console.log(rhinoObject)
           }
         }
       }
@@ -218,8 +219,9 @@ function collectResults(responseJson) {
     {
         // debug 
         
-        console.log(child)
+        
         object.traverse(child => {
+        console.log(child)
           if (child.material !== undefined)
             child.material = new THREE.MeshNormalMaterial()
         }, false)
