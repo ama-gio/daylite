@@ -47,10 +47,14 @@
         </div>
 
         <script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.126.0/build/three.module.js'
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/OrbitControls.js'
-import { Rhino3dmLoader } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/loaders/3DMLoader.js'
-import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm.module.js'
+
+// Import libraries
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.126.0/build/three.module.js";
+import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/OrbitControls.js";
+import rhino3dm from "https://cdn.jsdelivr.net/npm/rhino3dm@7.11.1/rhino3dm.module.js";
+import { RhinoCompute } from "https://cdn.jsdelivr.net/npm/compute-rhino3d@0.13.0-beta/compute.rhino3d.module.js";
+import { Rhino3dmLoader } from "https://cdn.jsdelivr.net/npm/three@0.124.0/examples/jsm/loaders/3DMLoader.js";
+
 
 // set up loader for converting the results to threejs
 const loader = new Rhino3dmLoader()
@@ -154,27 +158,13 @@ function init() {
  * Call appserver
  */
 async function compute() {
-    
   // construct url for GET /solve/definition.gh?name=value(&...)
-//   const url = new URL('/solve/' + data.definition, window.location.origin)
-//   Object.keys(data.inputs).forEach(key => url.searchParams.append(key, data.inputs[key]))
-//   console.log(url.toString())
-
-
-  // initialise 'data' object that will be used by compute()
-
-
-
-  const request = {
-    'method':'POST',
-    'body': JSON.stringify(data),
-    'headers': {'Content-Type': 'application/json', "RhinoComputeKey" : "macad2022"} 
-  }
-
+  const url = new URL('/solve/' + data.definition, window.location.origin)
+  Object.keys(data.inputs).forEach(key => url.searchParams.append(key, data.inputs[key]))
+  console.log(url.toString())
   
   try {
-    const response = await fetch('/solve', request)
-    console.log(response)
+    const response = await fetch(url)
   
     if(!response.ok) {
       // TODO: check for errors in response json
@@ -182,7 +172,7 @@ async function compute() {
     }
 
     const responseJson = await response.json()
-    console.log(responseJson)
+
     collectResults(responseJson)
 
   } catch(error) {
@@ -226,8 +216,6 @@ function collectResults(responseJson) {
       showSpinner(false)
       return
     }
-
-    
 
     //transfer geometry userstring to object attribute for some objects
     let objects = doc.objects();
