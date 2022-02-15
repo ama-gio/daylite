@@ -12,7 +12,7 @@ loader.setLibraryPath('https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/')
 const definition = 'test.gh'
 
 // setup input change events
-const dimension_slider = document.getElementById('dimension')
+const dimension_slider = document.getElementById('Count')
 dimension_slider.addEventListener('mouseup', onSliderChange, false)
 dimension_slider.addEventListener('touchend', onSliderChange, false)
 
@@ -41,9 +41,7 @@ async function compute() {
   const data = {
     definition: definition,
     inputs: {
-      'dimension': dimension_slider.valueAsNumber,
-      'height': height_slider.valueAsNumber,
-      'points': points
+      'Count': dimension_slider.valueAsNumber,
     }
   }
 
