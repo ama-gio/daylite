@@ -52,7 +52,6 @@ import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/exampl
 import { Rhino3dmLoader } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/loaders/3DMLoader.js'
 import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm.module.js'
 
-console.log("IM HERE!!!!!!!!!!!!")
 
 // set up loader for converting the results to threejs
 const loader = new Rhino3dmLoader()
@@ -209,6 +208,20 @@ function collectResults(responseJson) {
       }
     }
 
+
+     //transfer geometry userstring to object attribute for some objects
+    let objects = doc.objects();
+     for ( let i = 0; i < objects.count; i++ ) {
+    const rhinoObject = objects.get( i );
+
+    if ( rhinoObject.geometry().userStringCount > 0 ) {
+      const g_userStrings = rhinoObject.geometry().getUserStrings()
+      if( g_userStrings[0][0] == "color") {
+        rhinoObject.attributes().setUserString(g_userStrings[0][0], g_userStrings[0][1])
+      }
+    }
+    
+
     if (doc.objects().count < 1) {
       console.error('No rhino objects to load!')
       showSpinner(false)
@@ -223,11 +236,22 @@ function collectResults(responseJson) {
         
         
         object.traverse(child => {
-        console.log(child)
-          if (child.material !== undefined)
-            child.material = new THREE.MeshNormalMaterial()
-        }, false)
         
+        
+            if (child.userData.attributes.userStringCount > 0) {
+          
+          //get color from userStrings
+          const colorData = child.userData.attributes.userStrings[0]
+          const col = colorData[1];
+
+          //convert color from userstring to THREE color and assign it
+          const threeColor = new THREE.Color("rgb(" + col + ")");
+          const mat = new THREE.LineBasicMaterial({ color: threeColor });
+          child.material = mat;
+        
+        }
+
+
 
         // clear objects from scene. do this here to avoid blink
         scene.traverse(child => {
