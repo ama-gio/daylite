@@ -187,6 +187,8 @@ function collectResults(responseJson) {
 
     const values = responseJson.values
 
+    console.log(values)
+
     // clear doc
     if( doc !== undefined)
         doc.delete()
@@ -205,7 +207,6 @@ function collectResults(responseJson) {
           const rhinoObject = decodeItem(branch[j])
           if (rhinoObject !== null) {
             doc.objects().add(rhinoObject, null)
-            console.log(rhinoObject)
           }
         }
       }
@@ -221,6 +222,8 @@ function collectResults(responseJson) {
     let objects = doc.objects();
     for ( let i = 0; i < objects.count; i++ ) {
         const rhinoObject = objects.get( i );
+        console.log(rhinoObject)
+
 
         if ( rhinoObject.geometry().userStringCount > 0 ) {
         const g_userStrings = rhinoObject.geometry().getUserStrings()
@@ -239,6 +242,9 @@ function collectResults(responseJson) {
         // debug 
         
         scene.traverse(child => {
+
+        console.log(child)
+        
         if ( child.hasOwnProperty("userStringCount") && child.userData.attributes.userStringCount > 0) {
 
             //get color from userStrings
