@@ -211,22 +211,24 @@ function collectResults(responseJson) {
       console.error('No rhino objects to load!')
       showSpinner(false)
       return
-    }else{
-
-        //transfer geometry userstring to object attribute for some objects
-        let objects = doc.objects();
-        for ( let i = 0; i < objects.count; i++ ) {
-            const rhinoObject = objects.get( i );
-
-            if ( rhinoObject.geometry().userStringCount > 0 ) {
-            const g_userStrings = rhinoObject.geometry().getUserStrings()
-            if( g_userStrings[0][0] == "geo") {
-                rhinoObject.attributes().setUserString(g_userStrings[0][0], g_userStrings[0][1])
-            }
-            }
-        }
-
     }
+
+    
+
+    //transfer geometry userstring to object attribute for some objects
+    let objects = doc.objects();
+    for ( let i = 0; i < objects.count; i++ ) {
+        const rhinoObject = objects.get( i );
+        console.log(rhinoObject)
+        if ( rhinoObject.geometry().userStringCount > 0 ) {
+        const g_userStrings = rhinoObject.geometry().getUserStrings()
+        if( g_userStrings[0][0] == "geo") {
+            rhinoObject.attributes().setUserString(g_userStrings[0][0], g_userStrings[0][1])
+        }
+        }
+    }
+
+    
 
     // load rhino doc into three.js scene
     const buffer = new Uint8Array(doc.toByteArray()).buffer
