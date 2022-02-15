@@ -218,20 +218,20 @@ function collectResults(responseJson) {
       return
     }
 
-    //transfer geometry userstring to object attribute for some objects
-    let objects = doc.objects();
-    for ( let i = 0; i < objects.count; i++ ) {
-        const rhinoObject = objects.get( i );
-        console.log(rhinoObject)
+    // //transfer geometry userstring to object attribute for some objects
+    // let objects = doc.objects();
+    // for ( let i = 0; i < objects.count; i++ ) {
+    //     const rhinoObject = objects.get( i );
+    //     console.log(rhinoObject)
 
 
-        if ( rhinoObject.geometry().userStringCount > 0 ) {
-        const g_userStrings = rhinoObject.geometry().getUserStrings()
-        if( g_userStrings[0][0] == "geo") {
-            rhinoObject.attributes().setUserString(g_userStrings[0][0], g_userStrings[0][1])
-        }
-        }
-    }
+    //     if ( rhinoObject.geometry().userStringCount > 0 ) {
+    //     const g_userStrings = rhinoObject.geometry().getUserStrings()
+    //     if( g_userStrings[0][0] == "geo") {
+    //         rhinoObject.attributes().setUserString(g_userStrings[0][0], g_userStrings[0][1])
+    //     }
+    //     }
+    // }
 
     
 
@@ -239,34 +239,40 @@ function collectResults(responseJson) {
     const buffer = new Uint8Array(doc.toByteArray()).buffer
     loader.parse( buffer, function ( object ) 
     {
-        // debug 
         
-        scene.traverse(child => {
 
-        console.log(child)
-        
-        if ( child.hasOwnProperty("userStringCount") && child.userData.attributes.userStringCount > 0) {
-
-            //get color from userStrings
-            const colorData = child.userData.attributes.userStrings[0]
-            const col = colorData[1];
-
-            console.log(col)
-
-            //convert color from userstring to THREE color and assign it
-            const threeColor = new THREE.Color("rgb(" + col + ")");
-            const mat = new THREE.LineBasicMaterial({ color: threeColor });
-            child.material = mat;
-
+      // clear objects from scene
+      scene.traverse(child => {
+        if ( child.userData.hasOwnProperty( 'objectType' ) && child.userData.objectType === 'File3dm') {
+          scene.remove( child )
         }
+      })
+        
+      ///////////////////////////////////////////////////////////////////////
+      
+      // color crvs
+      object.traverse(child => {
+        if (child.isLine) {
+          if (child.userData.attributes.geometry.userStringCount > 0) {
+            //console.log(child.userData.attributes.geometry.userStrings[0][1])
+            const col = child.userData.attributes.geometry.userStrings[0][1]
+            const threeColor = new THREE.Color( "rgb(" + col + ")")
+            const mat = new THREE.LineBasicMaterial({color:threeColor})
+            child.material = mat
+          }
+        }
+      })
+
+      ///////////////////////////////////////////////////////////////////////
+      // add object graph from rhino model to three.js scene
         
         // clear objects from scene. do this here to avoid blink
         
-            if (!child.isLight) {
-                scene.remove(child)
-            }
+        //     if (!child.isLight) {
+        //         scene.remove(child)
+        //     }
             
-        })
+        // })
         // add object graph from rhino model to three.js scene
         scene.add( object )
 
