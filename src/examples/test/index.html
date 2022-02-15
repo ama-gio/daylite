@@ -241,6 +241,8 @@ function collectResults(responseJson) {
             const colorData = child.userData.attributes.userStrings[0]
             const col = colorData[1];
 
+            console.log(col)
+
             //convert color from userstring to THREE color and assign it
             const threeColor = new THREE.Color("rgb(" + col + ")");
             const mat = new THREE.LineBasicMaterial({ color: threeColor });
