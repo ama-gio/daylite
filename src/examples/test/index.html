@@ -235,7 +235,7 @@ function collectResults(responseJson) {
         // debug 
         
         scene.traverse(child => {
-        if (child.userData.attributes.userStringCount > 0) {
+        if ( child.hasOwnProperty("userStringCount") && child.userData.attributes.userStringCount > 0) {
 
             //get color from userStrings
             const colorData = child.userData.attributes.userStrings[0]
