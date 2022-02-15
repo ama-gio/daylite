@@ -164,17 +164,17 @@ async function compute() {
   // initialise 'data' object that will be used by compute()
 
 
-  console.log(data.inputs)
 
   const request = {
     'method':'POST',
     'body': JSON.stringify(data),
-    'headers': {'Content-Type': 'application/json', "RhinoComputeKey" : "b8f91f04-3782-4f1c-87ac-8682f865bf1b"} 
+    'headers': {'Content-Type': 'application/json', "RhinoComputeKey" : "macad2022"} 
   }
 
   
   try {
     const response = await fetch('/solve', request)
+    console.log(response)
   
     if(!response.ok) {
       // TODO: check for errors in response json
