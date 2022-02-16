@@ -12,12 +12,10 @@ loader.setLibraryPath("https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/");
 const definition = "test.gh";
 
 // setup input change events
-const dimension_slider = document.getElementById("dimension");
-dimension_slider.addEventListener("mouseup", onSliderChange, false);
-dimension_slider.addEventListener("touchend", onSliderChange, false);
-const height_slider = document.getElementById("height");
-height_slider.addEventListener("mouseup", onSliderChange, false);
-height_slider.addEventListener("touchend", onSliderChange, false);
+const count_slider = document.getElementById("count");
+count_slider.addEventListener("mouseup", onSliderChange, false);
+count_slider.addEventListener("touchend", onSliderChange, false);
+
 
 let points = [];
 
