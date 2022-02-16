@@ -34,8 +34,8 @@ function rndPts() {
   // generate random points
 
   const cntPts = 3;
-  const bndX = dimension_slider.valueAsNumber / 2;
-  const bndY = dimension_slider.valueAsNumber / 2;
+  const bndX = count_slider.valueAsNumber / 2;
+  const bndY = count_slider.valueAsNumber / 2;
 
   for (let i = 0; i < cntPts; i++) {
     const x = Math.random() * (bndX - -bndX) + -bndX;
