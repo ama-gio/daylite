@@ -156,7 +156,7 @@ function commonSolve (req, res, next){
       }
 
     }).then( (result) => {
-
+      /*
       const timeComputeServerCallComplete = performance.now()
 
       let computeTimings = computeServerTiming.get('server-timing')
@@ -181,7 +181,7 @@ function commonSolve (req, res, next){
         cache.set(res.locals.cacheKey, result)
       }
 
-      res.setHeader('Server-Timing', timing)
+      res.setHeader('Server-Timing', timing)*/
       res.send(result)
     }).catch( (error) => { 
       next(error)
