@@ -66,6 +66,7 @@ async function compute(){
     headers = response.headers.get('server-timing')
     const responseJson = await response.json()
 
+
     // Request finished. Do processing here.
     let t1 = performance.now()
     const computeSolveTime = t1 - timeComputeStart
