@@ -85,15 +85,6 @@
             }
 
 
-            #descr{
-                text-align: left;
-                font-size: 10px;
-                text-align: left;
-                padding: 1px;
-                color: white;
-            }
-
-
             img{
                 width: 15px;
             }
@@ -110,12 +101,20 @@
                   <input class = "slider" type="range" id="count" min="1" max="10" value="10" step="1">
                 </div>
                 <div>
-                  <label class = "sliderLabel" for ="minXY">minXY</label>
-                  <input class = "slider" type="range" id="minXY" min="0" max="50" value="13" step="1">
+                  <label class = "sliderLabel" for ="minXcoord">minXcoord</label>
+                  <input class = "slider" type="range" id="minXcoord" min="0" max="50" value="13" step="1">
                 </div>
                 <div>
-                  <label class = "sliderLabel" for ="maxXY">maxXY</label>
-                  <input class = "slider" type="range" id="maxXY" min="0" max="50" value="50" step="1">
+                  <label class = "sliderLabel" for ="maxXcoord">maxXcoord</label>
+                  <input class = "slider" type="range" id="maxXcoord" min="0" max="50" value="50" step="1">
+                </div>
+                <div>
+                  <label class = "sliderLabel" for ="minYcoord">minYcoord</label>
+                  <input class = "slider" type="range" id="minYcoord" min="0" max="50" value="13" step="1">
+                </div>
+                <div>
+                  <label class = "sliderLabel" for ="maxYcoord">maxYcoord</label>
+                  <input class = "slider" type="range" id="maxYcoord" min="0" max="50" value="50" step="1">
                 </div>
                 <div>
                   <label class = "sliderLabel" for ="minLength">minLength</label>
@@ -155,14 +154,14 @@
                 </div>
                 <div>
                   <label class = "sliderLabel" for ="maxDistance">maxDistance</label>
-                  <input class = "slider" type="range" id="maxDistance" min="20" max="70" value="66" step="1">
+                  <input class = "slider" type="range" id="maxDistance" min="20" max="150" value="77" step="1">
                 </div>
                 <div><button id="downloadButton" disabled>Download</button></div>
                 <div><a href="volumeMassing.gh" download="volumeMassing.gh.html">Save source code</a></div>
             </div>
         </div>
 
-        <script type="module">
+        <script type="module" >
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.126.0/build/three.module.js'
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/OrbitControls.js'
 import { Rhino3dmLoader } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/loaders/3DMLoader.js'
