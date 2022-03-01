@@ -1,7 +1,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.127.0/build/three.module.js'
 //This library allows us to add event listener to our 3D objects, just like with HTML DOM nodes.
 import { InteractionManager } from './build/three.interactive.js'
-import createDonuts from "./build/createDonuts.js";
+import createDonuts from "./createDonuts.js";
 // This library allows us to move the camera smoothly  
 import TWEEN from 'https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.5.0/dist/tween.esm.js';
 
