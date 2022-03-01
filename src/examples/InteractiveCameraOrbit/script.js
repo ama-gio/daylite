@@ -56,7 +56,8 @@ for (const [name, object] of Object.entries(donuts)) {
     const coords = { x: camera.position.x, y: camera.position.y, z:camera.position.z };
     //using tween function to smoothly move from one position to another one
     var tween = new TWEEN.Tween(coords)
-      .to({ x: donut.position.x+2, y: donut.position.y+2, z:donut.position.z+2 })
+      .to({ x: donut.position.x, y: donut.position.y, z:donut.position.z }, 5000)
+      .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate(() =>
         camera.position.set(coords.x, coords.y, coords.z)
       )
