@@ -19,8 +19,9 @@ const camera = new  THREE.PerspectiveCamera(
     1000
 );
 
+const cameraH = 50;
 //change the camera z position
-camera.position.z = 50;
+camera.position.z = cameraH;
 
 //create renderer
 const renderer = new THREE.WebGLRenderer();
@@ -69,7 +70,17 @@ for (const [name, object] of Object.entries(donuts)) {
 }
 
   
-
+document.getElementById("home").addEventListener("click", () => {
+    //using tween function to smoothly move from one position to another one
+    const coords = { x: camera.position.x, y: camera.position.y, z:camera.position.z };
+    var tween = new TWEEN.Tween(coords)
+      .to({ x: 0 , y: 0, z: cameraH }, 5000)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onUpdate(() =>
+        camera.position.set(coords.x, coords.y, coords.z)
+      )
+      .start();
+});
 
 
 
