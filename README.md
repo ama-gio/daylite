@@ -8,7 +8,7 @@ Volumetric massing diagram using Grasshopper
 The volumetric massing diagram will require inputs for position, dimension, rotation, spacing, and height. The data outputs will be the total perimeter, area and volume of the resulting geometry. The output geometry will have a color attached to each volume respresenting the use.
 
 ## Plugins
-None
+Kangaroo
 
 ## Data flow diagram
 Miro link: https://miro.com/app/board/uXjVOMjxtEs=/ 
