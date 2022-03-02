@@ -23,6 +23,11 @@ const cameraH = 50;
 //change the camera z position
 camera.position.z = cameraH;
 
+const geometry = new THREE.PlaneGeometry( 1000, 1000 );
+const material = new THREE.MeshBasicMaterial( {color: 0xe4b8ab, side: THREE.DoubleSide} );
+const plane = new THREE.Mesh( geometry, material )
+scene.add( plane );
+
 //create renderer
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -40,9 +45,9 @@ const interactionManager = new InteractionManager(
     orange: createDonuts({ color: 0xf9ad81, x: -20, y: -10 }),
     yellow: createDonuts({ color: 0xfff799, x: 20, y: -20 }),
     green: createDonuts({ color: 0xa3d39c, x: 10, y: 20 }),
-    blue: createDonuts({ color: 0x6dcff6, x: -15, y: 20 }),
-    purple: createDonuts({ color: 0xbd8cbf, x: -40, y: 20 }),
-    cyan: createDonuts({ color: 0x7accc8, x: -50, y: -20 })
+    blue: createDonuts({ color: 0x6dcff6, x: -10, y: 20 }),
+    purple: createDonuts({ color: 0xbd8cbf, x: -30, y: 10 }),
+    cyan: createDonuts({ color: 0x7accc8, x: 30, y: 10 })
   };
 
 //Adding click handler
@@ -92,7 +97,7 @@ document.getElementById("view01").addEventListener("click", () => {
   var startRotation = camera.quaternion.clone();
   // final rotation (with lookAt)
   camera.lookAt( 0,0,0 );
-  camera.position.set(-25,20,20);
+  camera.position.set(-20,15,20);
   var endRotation = camera.quaternion.clone();
   // revert to original rotation
   camera.quaternion.copy( startRotation );
