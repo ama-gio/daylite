@@ -54,27 +54,54 @@ for (const [name, object] of Object.entries(donuts)) {
     console.log(`${name} donut was clicked`);
     //identify the starting and the target point
     const donut = event.target;
-    var tween = new TWEEN.Tween(camera.lookAt( donut.position),5)
-    .start();
-  });
+    //using tween function to smoothly move from one position to another one
+    // backup original rotation
+    var startRotation = camera.quaternion.clone();
+    // final rotation (with lookAt)
+    camera.lookAt( donut.position );
+    var endRotation = camera.quaternion.clone();
+    // revert to original rotation
+    camera.quaternion.copy( startRotation );
+    // Tween
+    var lookAtTween = new TWEEN.Tween( camera.quaternion ).to( endRotation, 600 ).start();
+    });
   
-  interactionManager.add(object);
+    interactionManager.add(object);
   scene.add(object);
 }
 
   
 document.getElementById("home").addEventListener("click", () => {
-    //using tween function to smoothly move from one position to another one
-    const coords = { x: camera.position.x, y: camera.position.y, z:camera.position.z };
-    var tween = new TWEEN.Tween(coords)
-      .to({ x: 0 , y: 0, z: cameraH }, 5000)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .onUpdate(() =>
-        camera.position.set(coords.x, coords.y, coords.z)
-      )
-      .start();
+    // backup original rotation
+    var startRotation = camera.quaternion.clone();
+    // final rotation (with lookAt)
+    camera.lookAt( 0,0,0 );
+    camera.position.set(0,0,cameraH);
+    var endRotation = camera.quaternion.clone();
+    // revert to original rotation
+    camera.quaternion.copy( startRotation );
+    // Tween
+    var lookAtTween = new TWEEN.Tween( camera.quaternion ).to( endRotation, 600 )
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .start();
+    
 });
 
+document.getElementById("view01").addEventListener("click", () => {
+  // backup original rotation
+  var startRotation = camera.quaternion.clone();
+  // final rotation (with lookAt)
+  camera.lookAt( 0,0,0 );
+  camera.position.set(-25,20,20);
+  var endRotation = camera.quaternion.clone();
+  // revert to original rotation
+  camera.quaternion.copy( startRotation );
+  // Tween
+  var lookAtTween = new TWEEN.Tween( camera.quaternion ).to( endRotation, 600 )
+  .easing(TWEEN.Easing.Quadratic.Out)
+  .start();
+  
+});
 
 
 //creating a light element
