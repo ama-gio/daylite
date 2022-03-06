@@ -91,7 +91,7 @@ function getInputs() {
 }
 
 // more globals
-let scene, camera, renderer, controls
+let scene, camera, renderer, controls, area
 
 /**
  * Sets up the scene, camera, renderer, lights and controls and starts the animation
@@ -188,9 +188,12 @@ function collectResults(responseJson) {
 
           //GET VALUES
           if (values[i].ParamName == "RH_OUT:area") {
-            area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            area = branch[j].data 
+
+            console.log(area)
           }
-          console.log(area)
+          //console.log(area)
 
 
 
