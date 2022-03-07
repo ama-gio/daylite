@@ -349,12 +349,3 @@ function showSpinner(enable) {
   else
     document.getElementById('loader').style.display = 'none'
 }
-
-
-
-
-
-
-
-
-
