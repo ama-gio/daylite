@@ -77,8 +77,11 @@
                   <label for="maxHeight">maxHeight</label>
                   <input type="range" id="maxHeight" min="20" max="200" value="74" step="1">
                 </div>
-                <div id="area" style=" color:rgb(0, 103, 221) ;background-color:rgb(255, 255, 255);"> Slide to update area</div>
+                <div id="area" > Slide to update area</div>
+                <div id="perimeter" > Slide to update perimeter</div>
+                <div id="volume" > Slide to update volume</div>
                 <div><button id="downloadButton" disabled>Download</button></div>
+                <div><a href="spiral.gh" download="spiral.gh.html">Save source code</a></div>                <div><button id="downloadButton" disabled>Download</button></div>
                 <div><a href="packing.gh" download="packing.gh.html">Save source code</a></div>
             </div>
         </div>
@@ -145,7 +148,7 @@ function getInputs() {
 }
 
 // more globals
-let scene, camera, renderer, controls, area
+let scene, camera, renderer, controls, area, perimeter, volume
 
 /**
  * Sets up the scene, camera, renderer, lights and controls and starts the animation
@@ -237,7 +240,7 @@ function collectResults(responseJson) {
           // ...load rhino geometry into doc
           const rhinoObject = decodeItem(branch[j])
 
-                    //GET VALUES
+                      //GET VALUES
                     if (values[i].ParamName == "RH_OUT:area") {
             //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
             area = Math.round(branch[j].data)
@@ -245,6 +248,23 @@ function collectResults(responseJson) {
             console.log(area)
           }
           //console.log(area)
+
+          if (values[i].ParamName == "RH_OUT:perimeter") {
+            //perimeter = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            perimeter = Math.round(branch[j].data)
+
+            console.log(perimeter)
+          }
+          //console.log(perimeter)
+
+          
+          if (values[i].ParamName == "RH_OUT:volume") {
+            //volume = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            volume = Math.round(branch[j].data)
+
+            console.log(volume)
+          }
+          //console.log(volume)
 
           if (rhinoObject !== null) {
             doc.objects().add(rhinoObject, null)
@@ -254,7 +274,9 @@ function collectResults(responseJson) {
     }
 
      //GET VALUES
-     document.getElementById('area').innerText = "// SURFACE AREA = " + area + " m2"
+     document.getElementById('area').innerText = "// total area = " + area + " m2"
+     document.getElementById('area').innerText = "// total perimeter = " + perimeter + " m"
+     document.getElementById('area').innerText = "// total volume = " + volume + " m3"
 
     if (doc.objects().count < 1) {
       console.error('No rhino objects to load!')
