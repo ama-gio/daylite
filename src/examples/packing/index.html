@@ -275,8 +275,8 @@ function collectResults(responseJson) {
 
      //GET VALUES
      document.getElementById('area').innerText = "// total area = " + area + " m2"
-     document.getElementById('area').innerText = "// total perimeter = " + perimeter + " m"
-     document.getElementById('area').innerText = "// total volume = " + volume + " m3"
+     document.getElementById('perimeter').innerText = "// total perimeter = " + perimeter + " m"
+     document.getElementById('volume').innerText = "// total volume = " + volume + " m3"
 
     if (doc.objects().count < 1) {
       console.error('No rhino objects to load!')
