@@ -38,6 +38,10 @@
         <div id="container">
             <div id="overlay">
                 <div>
+                  <label for="seed">seed</label>
+                  <input type="range" id="seed" min="0" max="10" value="2" step="1">
+                </div>
+                <div>
                   <label for="count">count</label>
                   <input type="range" id="count" min="1" max="10" value="10" step="1">
                 </div>
@@ -59,11 +63,11 @@
                 </div>
                 <div>
                   <label for="minAngle">minAngle</label>
-                  <input type="range" id="minAngle" min="0" max="180" value="0" step="1">
+                  <input type="range" id="minAngle" min="0" max="180" value="118" step="1">
                 </div>
                 <div>
                   <label for="maxAngle">maxAngle</label>
-                  <input type="range" id="maxAngle" min="0" max="180" value="138" step="1">
+                  <input type="range" id="maxAngle" min="0" max="180" value="180" step="1">
                 </div>
                 <div>
                   <label for="minHeight">minHeight</label>
@@ -71,8 +75,9 @@
                 </div>
                 <div>
                   <label for="maxHeight">maxHeight</label>
-                  <input type="range" id="maxHeight" min="20" max="200" value="103" step="1">
+                  <input type="range" id="maxHeight" min="20" max="200" value="74" step="1">
                 </div>
+                <div id="area" style=" color:rgb(0, 103, 221) ;background-color:rgb(255, 255, 255);"> Slide to update area</div>
                 <div><button id="downloadButton" disabled>Download</button></div>
                 <div><a href="packing.gh" download="packing.gh.html">Save source code</a></div>
             </div>
@@ -140,7 +145,7 @@ function getInputs() {
 }
 
 // more globals
-let scene, camera, renderer, controls
+let scene, camera, renderer, controls, area
 
 /**
  * Sets up the scene, camera, renderer, lights and controls and starts the animation
@@ -231,12 +236,25 @@ function collectResults(responseJson) {
         for( let j = 0; j < branch.length; j ++) {
           // ...load rhino geometry into doc
           const rhinoObject = decodeItem(branch[j])
+
+                    //GET VALUES
+                    if (values[i].ParamName == "RH_OUT:area") {
+            //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            area = Math.round(branch[j].data)
+
+            console.log(area)
+          }
+          //console.log(area)
+
           if (rhinoObject !== null) {
             doc.objects().add(rhinoObject, null)
           }
         }
       }
     }
+
+     //GET VALUES
+     document.getElementById('area').innerText = "// SURFACE AREA = " + area + " m2"
 
     if (doc.objects().count < 1) {
       console.error('No rhino objects to load!')
