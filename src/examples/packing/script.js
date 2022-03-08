@@ -10,7 +10,8 @@ loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/' )
 // initialise 'data' object that will be used by compute()
 const data = {
   definition: 'packing.gh',
-  inputs: getInputs()
+  inputs: getInputs(),
+  'points': [] // start with an empty list (corresponds to "points" input)
 }
 
 // globals
@@ -20,11 +21,14 @@ rhino3dm().then(async m => {
     rhino = m
 
     init()
-    compute()
-})
+    // compute() // don't compute until user clicks - see onClick()
+  })
 
 const downloadButton = document.getElementById("downloadButton")
 downloadButton.onclick = download
+
+const mouse = new THREE.Vector3()
+window.addEventListener( 'click', onClick, false);
 
   /////////////////////////////////////////////////////////////////////////////
  //                            HELPER  FUNCTIONS                            //
@@ -104,7 +108,7 @@ function init() {
 /**
  * Call appserver
  */
-async function compute() {
+ async function compute() {
   // construct url for GET /solve/definition.gh?name=value(&...)
   const url = new URL('/solve/' + data.definition, window.location.origin)
   Object.keys(data.inputs).forEach(key => url.searchParams.append(key, data.inputs[key]))
@@ -126,6 +130,7 @@ async function compute() {
     console.error(error)
   }
 }
+
 
 /**
  * Parse response
@@ -151,8 +156,8 @@ function collectResults(responseJson) {
           // ...load rhino geometry into doc
           const rhinoObject = decodeItem(branch[j])
 
-                      //GET VALUES
-                    if (values[i].ParamName == "RH_OUT:area") {
+          //GET VALUES
+            if (values[i].ParamName == "RH_OUT:area") {
             //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
             area = Math.round(branch[j].data)
 
@@ -194,6 +199,9 @@ function collectResults(responseJson) {
       showSpinner(false)
       return
     }
+
+    // hack (https://github.com/mcneel/rhino3dm/issues/353)
+    doc.objects().addSphere(new rhino.Sphere([0,0,0], 0.001), null)
 
     // load rhino doc into three.js scene
     const buffer = new Uint8Array(doc.toByteArray()).buffer
@@ -280,6 +288,37 @@ function onSliderChange () {
   data.inputs = inputs
 
   compute()
+}
+
+/**
+ * Handle click events
+ */
+function onClick( event ) {
+
+  // calculate mouse position in normalized device coordinates
+  // (-1 to +1) for both components
+  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1
+  mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1
+  mouse.z = 0
+  mouse.unproject(camera)
+
+  console.log( `${mouse.x},${mouse.y},${mouse.z}` )
+
+  // add json-encoded Point3d to list
+  // e.g. '{ "X": 1.0, "Y": 2.0, "Z": 0.0 }'
+  const pt = "{\"X\":"+mouse.x+",\"Y\":"+mouse.y+",\"Z\":"+mouse.z+"}"
+  // in packing.gh the input is "points"
+  data['points'].push(pt)
+
+  // don't bother solving until we have three points
+  if (data['points'].length < 3) {
+    console.log("Need at least three points!")
+    return
+  }
+
+  // solve and update the geometry!
+  compute()
+
 }
 
 /**
