@@ -11,10 +11,8 @@ loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/' )
 const data = {
   definition: 'packing.gh',
   inputs: getInputs(),
-  //'points': [] // start with an empty list (corresponds to "points" input)
+  'points': [] // start with an empty list (corresponds to "points" input)
 }
-
-data.inputs = {'points':[]}
 
 // globals
 let rhino, doc
@@ -31,6 +29,8 @@ downloadButton.onclick = download
 
 const mouse = new THREE.Vector3()
 window.addEventListener( 'click', onClick, false);
+
+
 
   /////////////////////////////////////////////////////////////////////////////
  //                            HELPER  FUNCTIONS                            //
@@ -77,12 +77,12 @@ function init() {
 
     // create a scene and a camera
     scene = new THREE.Scene()
-    
+    scene.background = new THREE.Color(1, 1, 1)
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
     camera.position.set(1, -1, 1) // like perspective view
 
     // very light grey for background, like rhino
-    scene.background = new THREE.Color('rgb(241, 240, 240)')
+    scene.background = new THREE.Color('whitesmoke')
 
     // create the renderer and add it to the html
     renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -111,15 +111,15 @@ function init() {
  * Call appserver
  */
  async function compute() {
- 
-  console.log(data.inputs)
 
+  showSpinner(true)
+
+  // use POST request
   const request = {
-    'method': 'POST',
+    'method':'POST',
     'body': JSON.stringify(data),
-    'headers': { 'Content-Type': 'application/json' }
+    'headers': {'Content-Type': 'application/json'}
   }
-  console.log(request)
   
   try {
     const response = await fetch('/solve', request)
@@ -138,7 +138,6 @@ function init() {
   }
 }
 
-
 /**
  * Parse response
  */
@@ -146,9 +145,13 @@ function collectResults(responseJson) {
 
     const values = responseJson.values
 
+    console.log(values)
+
     // clear doc
+    try {
     if( doc !== undefined)
         doc.delete()
+    } catch {}
 
     //console.log(values)
     doc = new rhino.File3dm()
@@ -208,13 +211,14 @@ function collectResults(responseJson) {
     }
 
     // hack (https://github.com/mcneel/rhino3dm/issues/353)
-    doc.objects().addSphere(new rhino.Sphere([0,0,0], 1), null)
+    doc.objects().addSphere(new rhino.Sphere([0,0,0], 0.001), null)
 
     // load rhino doc into three.js scene
     const buffer = new Uint8Array(doc.toByteArray()).buffer
     loader.parse( buffer, function ( object ) 
     {
-      //cool colors
+        // debug cool colors!!!
+        
         object.traverse(child => {
           if (child.material !== undefined)
             child.material = new THREE.MeshNormalMaterial()
@@ -306,24 +310,22 @@ function onClick( event ) {
   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1
   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1
   mouse.z = 0
-  console.log(mouse.z)
   mouse.unproject(camera)
 
   console.log( `${mouse.x},${mouse.y},${mouse.z}` )
 
   // add json-encoded Point3d to list
   // e.g. '{ "X": 1.0, "Y": 2.0, "Z": 0.0 }'
-  const pt = "{\"X\":"+mouse.x+",\"Y\":"+mouse.y+",\"Z\":"+0+"}"
+  const pt = "{\"X\":"+mouse.x+",\"Y\":"+mouse.y+",\"Z\":"+mouse.z+"}"
   // in packing.gh the input is "points"
-  data.inputs['points'].push(pt)
-  console.log(data)
+  data['points'].push(pt)
 
-  // don't bother solving until we have 3 points
-  if (data.inputs['points'].length < 3) {
+  // don't bother solving until we have three points
+  if (data['points'].length < 3) {
     console.log("Need at least three points!")
     return
   }
-console.log('compute')
+
   // solve and update the geometry!
   compute()
 
