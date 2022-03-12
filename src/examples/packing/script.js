@@ -14,7 +14,7 @@ const data = {
   //'points': [] // start with an empty list (corresponds to "points" input)
 }
 
-data.inputs = {'points':[]}
+data.inputs = {...data.inputs, 'points':[]}
 
 // globals
 let rhino, doc
@@ -65,7 +65,7 @@ function getInputs() {
 }
 
 // more globals
-let scene, camera, renderer, controls, area, perimeter, volume
+let scene, camera, renderer, controls, buildingArea, siteArea, perimeter, volume
 
 /**
  * Sets up the scene, camera, renderer, lights and controls and starts the animation
@@ -94,9 +94,24 @@ function init() {
     controls = new OrbitControls(camera, renderer.domElement)
 
     // add a directional light
-    const directionalLight = new THREE.DirectionalLight( 0xffffff )
-    directionalLight.intensity = 2
-    scene.add( directionalLight )
+    const directionalLight1 = new THREE.DirectionalLight( 0xffffff )
+    directionalLight1.position.set( 0, 0, 0 )
+    directionalLight1.castShadow = false
+    directionalLight1.intensity = 2
+    scene.add( directionalLight1 )
+
+
+    const directionalLight2 = new THREE.DirectionalLight( 0xffffff )
+    directionalLight2.position.set( -20, -20, -20 )
+    directionalLight2.castShadow = false
+    directionalLight2.intensity = 2
+    scene.add( directionalLight2 )
+
+    const directionalLight3 = new THREE.DirectionalLight( 0xffffff )
+    directionalLight3.position.set( 20, 20, 20 )
+    directionalLight3.castShadow = false
+    directionalLight3.intensity = 2
+    scene.add( directionalLight3 )
 
     const ambientLight = new THREE.AmbientLight()
     scene.add( ambientLight )
@@ -164,13 +179,21 @@ function collectResults(responseJson) {
           const rhinoObject = decodeItem(branch[j])
 
           //GET VALUES
-            if (values[i].ParamName == "RH_OUT:area") {
-            //area = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
-            area = Math.round(branch[j].data)
+            if (values[i].ParamName == "RH_OUT:buildingArea") {
+            //buildingArea = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            buildingArea = Math.round(branch[j].data)
 
-            console.log(area)
+            console.log(buildingArea)
           }
-          //console.log(area)
+          //console.log(buildingArea)
+
+          if (values[i].ParamName == "RH_OUT:siteArea") {
+            //siteArea = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            siteArea = Math.round(branch[j].data)
+
+            console.log(siteArea)
+          }
+          //console.log(siteArea)
 
           if (values[i].ParamName == "RH_OUT:perimeter") {
             //perimeter = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
@@ -197,9 +220,10 @@ function collectResults(responseJson) {
     }
 
      //GET VALUES
-     document.getElementById('area').innerText = "// total area = " + area + " m2"
-     document.getElementById('perimeter').innerText = "// total perimeter = " + perimeter + " m"
-     document.getElementById('volume').innerText = "// total volume = " + volume + " m3"
+     document.getElementById('siteArea').innerText = "// Total Site Area = " + siteArea + " m2"
+     document.getElementById('buildingArea').innerText = "// Total Building Area = " + buildingArea + " m2"
+     document.getElementById('perimeter').innerText = "// Total Building Perimeter = " + perimeter + " m"
+     document.getElementById('volume').innerText = "// Total Volume = " + volume + " m3"
 
     if (doc.objects().count < 1) {
       console.error('No rhino objects to load!')
@@ -215,11 +239,24 @@ function collectResults(responseJson) {
     loader.parse( buffer, function ( object ) 
     {
       //cool colors
-        object.traverse(child => {
-          if (child.material !== undefined)
-            child.material = new THREE.MeshNormalMaterial()
-        }, false)
-        
+        // object.traverse(child => {
+        //   if (child.material !== undefined)
+        //     child.material = new THREE.MeshNormalMaterial()
+        // }, false)
+
+       // color Mesh
+      object.traverse(child => {
+        if (child.isMesh) {
+          if (child.userData.attributes.geometry.userStringCount > 0) {
+            //console.log(child.userData.attributes.geometry.userStrings[0][1])
+            const col = child.userData.attributes.geometry.userStrings[0][1]
+            const threeColor = new THREE.Color( "rgb(" + col + ")")
+            const mat = new THREE.MeshPhysicalMaterial( {color: threeColor, transparent: true, opacity: 0.8})
+            child.material = mat 
+          }
+        }
+      })
+
 
         // clear objects from scene. do this here to avoid blink
         scene.traverse(child => {
@@ -228,7 +265,7 @@ function collectResults(responseJson) {
             }
         })
 
-              // color crvs
+      // color crvs
       object.traverse(child => {
         if (child.isLine) {
           if (child.userData.attributes.geometry.userStringCount > 0) {
@@ -236,7 +273,7 @@ function collectResults(responseJson) {
             const col = child.userData.attributes.geometry.userStrings[0][1]
             const threeColor = new THREE.Color( "rgb(" + col + ")")
             const mat = new THREE.LineBasicMaterial({color:threeColor})
-            child.material = mat
+            child.material = mat            
           }
         }
       })
@@ -303,8 +340,8 @@ function onClick( event ) {
 
   // calculate mouse position in normalized device coordinates
   // (-1 to +1) for both components
-  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1
-  mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1
+  mouse.x = ( event.clientX / window.innerWidth ) * 100 - 1
+  mouse.y = - ( event.clientY / window.innerHeight ) * 100 + 1
   mouse.z = 0
   console.log(mouse.z)
   mouse.unproject(camera)
