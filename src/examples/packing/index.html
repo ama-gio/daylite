@@ -7,10 +7,46 @@
         <style>
             body {
                 margin: 0;
-                font-family: Arial, Helvetica, sans-serif;
                 font-family: monospace;
                 background-color: rgb(241, 240, 240);
             }
+
+            header{
+                font-size: 15px;
+                text-align: center;
+                padding: 10px;
+                padding-right: 0;
+                width: 100%;
+                display: inline-block;
+                font-weight: bold;
+                color: white;
+                text-decoration: none;
+                font-style: normal;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                background-color: rgb(236, 129, 255);
+                letter-spacing: 0.2px;
+                border-radius: 0px;
+            }
+
+            results{
+                font-size: 12px;
+                text-align: left;
+                padding: 10px;
+                padding-right: 0;
+                width: 100%;
+                display: inline-block;
+                font-weight: bold;
+                color: rgb(40, 176, 255);
+                text-decoration: none;
+                font-style: normal;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                background-color: white;
+                letter-spacing: 0.2px;
+                border-radius: 0px;
+            }
+
             canvas { width: 100%; height: 100%; }
             input[type=range] { width: 100%; }
             #container { position: relative; }
@@ -41,7 +77,7 @@
                 padding-bottom: 5px;
                 float: left;
                 position: absolute;
-                }
+                } 
 
             @keyframes spin {
                 0% { transform: rotate(0deg); }
@@ -84,16 +120,47 @@
                 border-radius: 0px;
             }
 
+            .results{
+                font-size: 12px;
+                text-align: left;
+                padding: 5px;
+                padding-right: 0;
+                width: 100%;
+                display: inline-block;
+                font-weight: bold;
+                color: rgb(40, 176, 255);
+                text-decoration: none;
+                font-style: normal;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                background-color: white;
+                letter-spacing: 0.2px;
+                border-radius: 0px;
+            }
+
+
+
 
         </style>
     </head>
     <body>
+      <header>Volume Massing <p>(Hold mouse click and then press ctrl at least three times to pick the verticies of the site boundary!)</p> </header>
+      
+      
+
         <div id="loader"></div> 
         <div id="container">
             <div id="overlay">
               <div id="info">
-                Volume Massing (click at least three times to start!)
-                <br>
+                <div>
+                <results>
+                  <div id="siteArea"> Pick points to update Site Area</div>
+                  <div id="buildingArea"> Slide to update Building Area</div>
+                  <div id="perimeter" > Slide to update Buildings Perimeter</div>
+                  <div id="volume" > Slide to update Building Volume</div>
+                 </results>
+                </div>
+
                 <div>
                   <label class = "sliderLabel" for="seed">Seed</label>
                   <input class = "slider" type="range" id="seed" min="0" max="10" value="2" step="1">
@@ -138,10 +205,7 @@
                   <label class = "sliderLabel" for="floorHeight">Floor Height</label>
                   <input class = "slider" type="range" id="floorHeight" min="3" max="5" value="3" step="1">
                 </div>
-                <div id="siteArea"> Pick points to update Site Area</div>
-                <div id="buildingArea"> Slide to update Building Area</div>
-                <div id="perimeter" > Slide to update Buildings Perimeter</div>
-                <div id="volume" > Slide to update Building Volume</div>
+
                 <div><button id="downloadButton" disabled>Download</button></div>
                 <div><a href="packing.gh" download="packing.gh.html">Save source code</a></div>
             </div>

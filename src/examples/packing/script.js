@@ -347,7 +347,7 @@ function onSliderChange () {
     mouse.z = 0
     mouse.unproject(camera)
 
-    console.log( `${mouse.x},${mouse.y},${0}` )
+    console.log( `${mouse.x},${mouse.y},${mouse.z}` )
 
     // add json-encoded Point3d to list
     // e.g. '{ "X": 1.0, "Y": 2.0, "Z": 0.0 }'
