@@ -336,34 +336,34 @@ function onSliderChange () {
 /**
  * Handle click events
  */
-function onClick( event ) {
-
+ function onClick( event ) {
+  console.log(mouse)
+  console.log(`The ctrl key is pressed: ${event.ctrlKey}`)
   // calculate mouse position in normalized device coordinates
   // (-1 to +1) for both components
-  mouse.x = ( event.clientX / window.innerWidth ) * 100 - 1
-  mouse.y = - ( event.clientY / window.innerHeight ) * 100 + 1
-  mouse.z = 0
-  console.log(mouse.z)
-  mouse.unproject(camera)
+  if(event.ctrlKey){
+    mouse.x = ( event.clientX / window.innerWidth ) * 100 - 1
+    mouse.y = - ( event.clientY / window.innerHeight ) * 100 + 1
+    mouse.z = 0
+    mouse.unproject(camera)
 
-  console.log( `${mouse.x},${mouse.y},${mouse.z}` )
+    console.log( `${mouse.x},${mouse.y},${0}` )
 
-  // add json-encoded Point3d to list
-  // e.g. '{ "X": 1.0, "Y": 2.0, "Z": 0.0 }'
-  const pt = "{\"X\":"+mouse.x+",\"Y\":"+mouse.y+",\"Z\":"+0+"}"
-  // in packing.gh the input is "points"
-  data.inputs['points'].push(pt)
-  console.log(data)
+    // add json-encoded Point3d to list
+    // e.g. '{ "X": 1.0, "Y": 2.0, "Z": 0.0 }'
+    const pt = "{\"X\":"+mouse.x+",\"Y\":"+mouse.y+",\"Z\":"+0+"}"
+    // in delaunay.gh the input is "points"
+    data.inputs['points'].push(pt)
 
-  // don't bother solving until we have 3 points
-  if (data.inputs['points'].length < 3) {
-    console.log("Need at least three points!")
-    return
+    // don't bother solving until we have three points
+    if (data.inputs['points'].length < 3) {
+      console.log("Need at least three points!")
+      return
+    }
+
+    // solve and update the geometry!
+    compute()
   }
-console.log('compute')
-  // solve and update the geometry!
-  compute()
-
 }
 
 /**
