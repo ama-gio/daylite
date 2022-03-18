@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+        <!-- <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png"> -->
+        <link rel="icon" type="image/png" sizes="256x256" href="../favicon/favicon-256x256.png">
         <link rel="manifest" href="../favicon/site.webmanifest">
         <link rel="icon" href="data:,">
         <title>Volume Massing</title>
@@ -16,7 +16,7 @@
             }
 
             header{
-                font-size: 15px;
+                font-size: 25px;
                 text-align: center;
                 padding: 10px;
                 padding-right: 0;
@@ -28,25 +28,45 @@
                 font-style: normal;
                 margin-top: 5px;
                 margin-bottom: 5px;
-                background-color: rgb(236, 129, 255);
+                background-color: rgba(236, 129, 255);
                 letter-spacing: 0.2px;
                 border-radius: 0px;
+            }
+
+            #instructions{
+              font-size: 12px;
+              text-align: center;
+              padding: 10px;
+              width: 50%;
+              color: white;
+              text-decoration: none;
+              font-style: normal;
+              margin-top: 5px;
+              margin-bottom: 5px;
+              background-color: rgba(236, 129, 255, 0.4);
+              letter-spacing: 0.2px;
+              border-radius: 0px;
+              position: absolute;
+              margin-left: auto;
+              margin-right: auto;
+              left: 0;
+              right: 0;
+              top: 30%;
             }
 
             results{
                 font-size: 12px;
                 text-align: left;
-                padding: 10px;
+                padding: 4px;
                 padding-right: 0;
                 width: 100%;
                 display: inline-block;
-                font-weight: bold;
                 color: rgb(40, 176, 255);
                 text-decoration: none;
                 font-style: normal;
                 margin-top: 5px;
                 margin-bottom: 5px;
-                background-color: white;
+                background-color: rgba(255, 255, 255, 0.4);
                 letter-spacing: 0.2px;
                 border-radius: 0px;
             }
@@ -119,51 +139,24 @@
                 font-style: normal;
                 margin-top: 5px;
                 margin-bottom: 5px;
-                background-color: white;
+                background-color: rgba(255, 255, 255, 0.4);
                 letter-spacing: 0.2px;
                 border-radius: 0px;
             }
-
-            .results{
-                font-size: 12px;
-                text-align: left;
-                padding: 5px;
-                padding-right: 0;
-                width: 100%;
-                display: inline-block;
-                font-weight: bold;
-                color: rgb(40, 176, 255);
-                text-decoration: none;
-                font-style: normal;
-                margin-top: 5px;
-                margin-bottom: 5px;
-                background-color: white;
-                letter-spacing: 0.2px;
-                border-radius: 0px;
-            }
-
 
 
 
         </style>
     </head>
     <body>
-      <header>Volume Massing <p>(Hold mouse click and then press ctrl at least three times to pick the verticies of the site boundary!)</p> </header>
-      
+      <header>Volume Massing</header>
+      <div id="instructions"><p>Hold ctrl and mouse click at least three times to pick the verticies of the site boundary!</p></div>
       
 
         <div id="loader"></div> 
         <div id="container">
             <div id="overlay">
               <div id="info">
-                <div>
-                <results>
-                  <div id="siteArea"> Pick points to update Site Area</div>
-                  <div id="buildingArea"> Slide to update Building Area</div>
-                  <div id="perimeter" > Slide to update Buildings Perimeter</div>
-                  <div id="volume" > Slide to update Building Volume</div>
-                 </results>
-                </div>
 
                 <div>
                   <label class = "sliderLabel" for="seed">Seed</label>
@@ -209,6 +202,16 @@
                   <label class = "sliderLabel" for="floorHeight">Floor Height</label>
                   <input class = "slider" type="range" id="floorHeight" min="3" max="5" value="3" step="1">
                 </div>
+
+                <div>
+                  <results>
+                    <div> Results!</div>
+                    <div id="siteArea"> Pick points to update Site Area</div>
+                    <div id="buildingArea"> Slide to update Building Area</div>
+                    <div id="perimeter" > Slide to update Buildings Perimeter</div>
+                    <div id="volume" > Slide to update Building Volume</div>
+                   </results>
+                  </div>
 
                 <div><button id="downloadButton" disabled>Download</button></div>
                 <div><a href="packing.gh" download="packing.gh.html">Save source code</a></div>

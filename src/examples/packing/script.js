@@ -18,6 +18,7 @@ data.inputs = {...data.inputs, 'points':[]}
 
 // globals
 let rhino, doc
+let clickCounter = 0;
 
 rhino3dm().then(async m => {
     rhino = m
@@ -220,10 +221,10 @@ function collectResults(responseJson) {
     }
 
      //GET VALUES
-     document.getElementById('siteArea').innerText = "// Total Site Area = " + siteArea + " m2"
-     document.getElementById('buildingArea').innerText = "// Total Building Area = " + buildingArea + " m2"
-     document.getElementById('perimeter').innerText = "// Total Building Perimeter = " + perimeter + " m"
-     document.getElementById('volume').innerText = "// Total Volume = " + volume + " m3"
+     document.getElementById('siteArea').innerText = "Total Site Area = " + siteArea + " m2"
+     document.getElementById('buildingArea').innerText = "Total Building Area = " + buildingArea + " m2"
+     document.getElementById('perimeter').innerText = "Total Building Perimeter = " + perimeter + " m"
+     document.getElementById('volume').innerText = "Total Volume = " + volume + " m3"
 
     if (doc.objects().count < 1) {
       console.error('No rhino objects to load!')
@@ -337,6 +338,10 @@ function onSliderChange () {
  * Handle click events
  */
  function onClick( event ) {
+  clickCounter++;
+  if(clickCounter > 2) {
+    document.getElementById('instructions').style.display = "none";
+  }
   console.log(mouse)
   console.log(`The ctrl key is pressed: ${event.ctrlKey}`)
   // calculate mouse position in normalized device coordinates
