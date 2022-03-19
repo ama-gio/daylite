@@ -11,14 +11,14 @@
         <style>
             body {
                 margin: 0;
-                font-family: monospace;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                 background-color: rgb(241, 240, 240);
             }
 
             header{
                 font-size: 25px;
                 text-align: center;
-                padding: 10px;
+                padding: 20px;
                 padding-right: 0;
                 width: 100%;
                 display: inline-block;
@@ -29,7 +29,7 @@
                 margin-top: 5px;
                 margin-bottom: 5px;
                 background-color: rgba(236, 129, 255);
-                letter-spacing: 0.2px;
+                letter-spacing: 2px;
                 border-radius: 0px;
             }
 
@@ -37,7 +37,7 @@
               font-size: 12px;
               text-align: center;
               padding: 10px;
-              width: 50%;
+              width: 33%;
               color: white;
               text-decoration: none;
               font-style: normal;
@@ -51,11 +51,12 @@
               margin-right: auto;
               left: 0;
               right: 0;
-              top: 30%;
+              top: 40%;
+
             }
 
             results{
-                font-size: 12px;
+                font-size: 10px;
                 text-align: left;
                 padding: 4px;
                 padding-right: 0;
@@ -66,7 +67,7 @@
                 font-style: normal;
                 margin-top: 5px;
                 margin-bottom: 5px;
-                background-color: rgba(255, 255, 255, 0.4);
+                background-color: rgba(255, 255, 255, 0.3);
                 letter-spacing: 0.2px;
                 border-radius: 0px;
             }
@@ -115,6 +116,13 @@
                 border-radius: 5px;
                 border-color: rgb(204, 204, 204);
                 background-color: rgb(212, 212, 212);
+                opacity: 0.5;
+                -webkit-transition: .2s;
+                transition: opacity .2s;
+            }
+
+            .slider:hover {
+              opacity: 1;
             }
 
             .slider::-webkit-slider-thumb{
@@ -124,6 +132,10 @@
                 border-radius: 12px;
                 background-color: rgba(205, 249, 255);
                 cursor: pointer;
+            }
+
+            .slider::-webkit-slider-thumb:hover{
+                background-color: rgb(40, 176, 255);
             }
 
             .sliderLabel{
@@ -139,18 +151,34 @@
                 font-style: normal;
                 margin-top: 5px;
                 margin-bottom: 5px;
-                background-color: rgba(255, 255, 255, 0.4);
+                background-color: rgba(255, 255, 255, 0.3);
                 letter-spacing: 0.2px;
                 border-radius: 0px;
             }
+
+            .btn {
+            background-color: rgb(125, 240, 220);
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 5px;
+            opacity: 0.5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          }
+
+          /* Darker background on mouse-over */
+          .btn:hover {
+            opacity: 1;
+          }
 
 
 
         </style>
     </head>
     <body>
-      <header>Volume Massing</header>
-      <div id="instructions"><p>Hold ctrl and mouse click at least three times to pick the verticies of the site boundary!</p></div>
+      <header>VOLUME MASSING</header>
+      <div id="instructions"><p>Hold ctrl and click on the canvas at least three times to draw the vertices of the site boundary!</p></div>
       
 
         <div id="loader"></div> 
@@ -205,16 +233,19 @@
 
                 <div>
                   <results>
-                    <div> Results!</div>
                     <div id="siteArea"> Pick points to update Site Area</div>
+                    <div id="sitePerimeter" > Pick points to update Site Perimeter</div>
                     <div id="buildingArea"> Slide to update Building Area</div>
-                    <div id="perimeter" > Slide to update Buildings Perimeter</div>
+                    <div id="buildingPerimeter" > Slide to update Building Perimeter</div>
                     <div id="volume" > Slide to update Building Volume</div>
+                    <div id="floorsCount" > Slide to update Number of Floors</div>
                    </results>
                   </div>
 
-                <div><button id="downloadButton" disabled>Download</button></div>
-                <div><a href="packing.gh" download="packing.gh.html">Save source code</a></div>
+                <div>
+                  <button class = "btn" id="downloadButton" disabled>.3dm</button>
+                  <button class = "btn" href="packing.gh" download="packing.gh.html">.html</button>
+              </div>
             </div>
         </div>
 

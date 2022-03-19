@@ -66,7 +66,7 @@ function getInputs() {
 }
 
 // more globals
-let scene, camera, renderer, controls, buildingArea, siteArea, perimeter, volume
+let scene, camera, renderer, controls, buildingArea, siteArea, sitePerimeter, buildingPerimeter, volume, floorsCount
 
 /**
  * Sets up the scene, camera, renderer, lights and controls and starts the animation
@@ -186,7 +186,6 @@ function collectResults(responseJson) {
 
             console.log(buildingArea)
           }
-          //console.log(buildingArea)
 
           if (values[i].ParamName == "RH_OUT:siteArea") {
             //siteArea = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
@@ -194,15 +193,20 @@ function collectResults(responseJson) {
 
             console.log(siteArea)
           }
-          //console.log(siteArea)
 
-          if (values[i].ParamName == "RH_OUT:perimeter") {
-            //perimeter = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
-            perimeter = Math.round(branch[j].data)
+          if (values[i].ParamName == "RH_OUT:sitePerimeter") {
+            //sitePerimeter = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            sitePerimeter = Math.round(branch[j].data)
 
-            console.log(perimeter)
+            console.log(buildingPerimeter)
           }
-          //console.log(perimeter)
+
+          if (values[i].ParamName == "RH_OUT:buildingPerimeter") {
+            //buildingPerimeter = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            buildingPerimeter = Math.round(branch[j].data)
+
+            console.log(buildingPerimeter)
+          }
 
           
           if (values[i].ParamName == "RH_OUT:volume") {
@@ -211,7 +215,13 @@ function collectResults(responseJson) {
 
             console.log(volume)
           }
-          //console.log(volume)
+
+          if (values[i].ParamName == "RH_OUT:floorsCount") {
+            //floorsCount = JSON.parse(responseJson.values[i].InnerTree['{ 0; }'][0].data)
+            floorsCount = Math.round(branch[j].data)
+
+            console.log(floorsCount)
+          }
 
           if (rhinoObject !== null) {
             doc.objects().add(rhinoObject, null)
@@ -221,10 +231,12 @@ function collectResults(responseJson) {
     }
 
      //GET VALUES
-     document.getElementById('siteArea').innerText = "Total Site Area = " + siteArea + " m2"
+     document.getElementById('siteArea').innerText = "Site Area = " + siteArea + " m2"
      document.getElementById('buildingArea').innerText = "Total Building Area = " + buildingArea + " m2"
-     document.getElementById('perimeter').innerText = "Total Building Perimeter = " + perimeter + " m"
-     document.getElementById('volume').innerText = "Total Volume = " + volume + " m3"
+     document.getElementById('sitePerimeter').innerText = "Site Perimeter = " + sitePerimeter + " m"
+     document.getElementById('buildingPerimeter').innerText = "Total Building Perimeter = " + buildingPerimeter + " m"
+     document.getElementById('volume').innerText = "Total Building Volume = " + volume + " m3"
+     document.getElementById('floorsCount').innerText = "Number of Floors = " + floorsCount
 
     if (doc.objects().count < 1) {
       console.error('No rhino objects to load!')
