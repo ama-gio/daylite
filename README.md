@@ -7,15 +7,14 @@ Volumetric massing diagram using Grasshopper
 ## description
 The volumetric massing app will require point inputs for the vertices of the site boundary. The user can draw the site boundary by holding ctrl and clicking on the canvas at least three times. After creating the site boundary, buildings will populate the site with random dimensions. 
 Using parametric sliders, the user can control various properties of the buildings, such as: the number of buildings, their dimension, their shape, their rotation, and their height, as well as the floor height.  It is also possible to change the seed to re-generate more iterations with the same settings. 
-The data outputs will be the following:
-perimeter of the site boundary
-total perimeter of the buildings
-area of the site 
-total area of the buildings, including all the floors 
-total volume of the resulting geometry
-number of floors
+<p>The data outputs will be the following:</p>
+<p>perimeter of the site boundary</p>
+<p>total perimeter of the buildings</p>
+<p>area of the site </p>
+<p>total area of the buildings, including all the floors</p> 
+<p>total volume of the resulting geometry</p>
 
-The output geometry will have a color attached to each volume representing the height.
+<p>The output geometry will have a color attached to each volume respresenting the height.</p>
 
 ## plugins
 Kangaroo
