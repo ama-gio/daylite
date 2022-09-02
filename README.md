@@ -48,4 +48,4 @@ DayLite responds to the issues with daylight analysis tools, which require an in
 <p>Program: MaCAD from Institute for Advanced Architecture of Catalonia</p>
 
 ## credits
-Very special thanks to Angelos Chronis, David Andres Leon, Hesham Shawqy, Aris Vartholomaios, and Sophie Moore!
+Very special thanks to Angelos Chronis, Aleksandra Jastrzebska, Aris Vartholomaios, David Andres Leon, Hesham Shawqy, and Sophie Moore!
