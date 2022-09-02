@@ -23,6 +23,7 @@ DayLite responds to the issues with daylight analysis tools, which require an in
 
 ## plugins
 Ladybug & Honeybee
+Pufferfish
 
 ## workflow diagram
 ![workflow](https://github.com/ama-gio/daylite/blob/main/wokflow.png?raw=true)
