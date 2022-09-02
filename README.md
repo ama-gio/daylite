@@ -2,39 +2,37 @@
 ![node-current (scoped)](https://img.shields.io/badge/dynamic/json?label=node&query=engines.node&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmcneel%2Fcompute.rhino3d.appserver%2Fmain%2Fpackage.json&style=flat-square&color=dark-green)
 
 # project brief
-Volumetric massing diagram using Grasshopper
+DayLite
 
 ## description
-The volumetric massing app will require point inputs for the vertices of the site boundary. The user can draw the site boundary by holding ctrl and clicking on the canvas at least three times. After creating the site boundary, buildings will populate the site with random dimensions. 
-<p>Using parametric sliders, the user can control various properties of the buildings, such as:</p>
-<p>- the number of buildings</p>
-<p>- building dimension</p>
-<p>- building shape</p>
-<p>- building rotation</p>
-<p>- building height</p> 
-<p>- floor height</p>  
-<p>- seed (to re-generate more iterations with the same settings)</p>
-<p>The data outputs will be the following:</p>
-<p>- perimeter of the site boundary</p>
-<p>- total perimeter of the buildings</p>
-<p>- area of the site </p>
-<p>- total area of the buildings, including all the floors</p> 
-<p>-total volume of the resulting geometry</p>
-
-<p>The output geometry will have a color attached to each volume respresenting the height.</p>
+DayLite responds to the issues with daylight analysis tools, which require an investment in time and training. DayLite is a tool related to Machine Learning supervised predictions for quick and easy daylighting design. The designs can be evaluated and the selected design can be generated in 3D modeling software and a web application.
+<p>Using parametric sliders, the user can control various properties of the a site, such as:</p>
+<p>- Floor Height</p>
+<p>- Room Dimensions</p>
+<p>- Room Orientation</p>
+<p>- Window Height</p> 
+<p>- Window Sill Height</p>  
+<p>- Shading Depth</p>
+<p>- Glazing Ratio</p>
+<p>- Context Height</p>
+<p>- Context Offset </p>
+<p>The Daylighting predicted outputs are the following</p> 
+<p>1. Spatial Daylight Autonomy (sDA)</p>
+<p>2. Useful Daylight Illuminance (UDI)</p>
+<p>3. Annual Sunlight Exposure (ASE)</p>
 
 ## plugins
-Kangaroo
+Ladybug & Honeybee
 
-## data flow diagram
-Miro link: https://miro.com/app/board/uXjVOMjxtEs=/ 
+## workflow diagram
+<img src="wokflow.png"alt="wokflow">
 
 ## author
-<p>amanda gioia</p>
-<p>background: architecture + design technology</p>
-<p>faculty: david andres leon + hesham shawqy</p>
-<p>course: cloud based data management</p>
-<p>program: MaCAD from Institute for Advanced Architecture of Catalonia</p>
+<p>Amanda Gioia</p>
+<p>Background: Architecture + Design Technology</p>
+<p>Faculty: Angelos Chronis </p>
+<p>Course: Thesis</p>
+<p>Program: MaCAD from Institute for Advanced Architecture of Catalonia</p>
 
 ## credits
-very special thanks to my instructors david andres leon + hesham shawqy and my classmates, especially sophie moore, and silvio!
+Very special thanks to Angelos Chronis, David Andres Leon, Hesham Shawqy, Aris Vartholomaios, and Sophie Moore!

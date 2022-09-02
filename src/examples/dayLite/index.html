@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png"> -->
+        <link rel="icon" type="image/png" sizes="256x256" href="../favicon/favicon-256x256.png">
+        <link rel="manifest" href="../favicon/site.webmanifest">
+        <link rel="icon" href="data:,">
+        <title>Day Lite</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                background-color: rgb(241, 240, 240);
+            }
+
+            header{
+                font-size: 25px;
+                text-align: center;
+                padding: 20px;
+                padding-right: 0;
+                width: 100%;
+                display: inline-block;
+                font-weight: bold;
+                color: white;
+                text-decoration: none;
+                font-style: normal;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                background-color: rgba(250, 130, 160);
+                letter-spacing: 2px;
+                border-radius: 0px;
+            }
+
+
+            results{
+                font-size: 10px;
+                text-align: left;
+                padding: 4px;
+                padding-right: 0;
+                width: 100%;
+                display: inline-block;
+                color: rgb(0, 192, 192);
+                text-decoration: none;
+                font-style: normal;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                background-color: rgba(255, 255, 255, 0.3);
+                letter-spacing: 0.2px;
+                border-radius: 0px;
+            }
+
+            canvas { width: 100%; height: 100%; }
+            input[type=range] { width: 100%; }
+            #container { position: relative; }
+            #container canvas, #overlay { position: absolute; }
+            #overlay { z-index: 1; width: 20%; }
+            #overlay div { padding: 5px; }
+            #loader {
+                border: 5px solid #a0a0a0; /* Light grey */
+                border-top: 5px solid #3d3d3d; /* Grey */
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                z-index: 2;
+                display: none; /* start hidden */
+            }
+
+            #slider-wrapper {
+              display: flex;
+              flex-direction: row;
+            }
+
+            #sidebar {  
+                z-index: 1; 
+                width: 350px;
+                background-color: white;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                float: left;
+                position: absolute;
+                } 
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+            .slider{
+                -webkit-appearance: none;
+                width: 10px;
+                height: 8px;
+                border-radius: 5px;
+                border-color: rgb(204, 204, 204);
+                background-color: rgb(212, 212, 212);
+                opacity: 0.5;
+                -webkit-transition: .2s;
+                transition: opacity .2s;
+            }
+
+            .slider:hover {
+              opacity: 1;
+            }
+
+            .slider::-webkit-slider-thumb{
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 12px;
+                background-color: rgba(142, 222, 209);
+                cursor: pointer;
+            }
+
+            .slider::-webkit-slider-thumb:hover{
+                background-color: rgb(2, 110, 86);
+            }
+
+            .sliderLabel{
+                font-size: 10px;
+                text-align: left;
+                padding: 2px;
+                padding-right: 0;
+                width: 100%;
+                display: inline-block;
+                font-weight: bold;
+                color: rgb(198, 130, 237);
+                text-decoration: none;
+                font-style: normal;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                background-color: rgba(255, 255, 255);
+                letter-spacing: 0.2px;
+                border-radius: 0px;
+            }
+
+            .btn {
+            background-color: rgb(142, 222, 209);
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 5px;
+            opacity: 0.5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          }
+
+          /* Darker background on mouse-over */
+          .btn:hover {
+            opacity: 1;
+          }
+
+
+
+        </style>
+    </head>
+    <body>
+      <header>DAY LITE</header>      
+
+        <div id="loader"></div> 
+        <div id="container">
+            <div id="overlay">
+              <div id="info">
+                <div id="slider-wrapper">
+                  <div>
+                    <div>
+                      <label class = "sliderLabel" for ="floorHeight">floorHeight</label>
+                      <input class = "slider" type="range" id="floorHeight" min="3" max="10" value="8" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="width">width</label>
+                      <input class = "slider" type="range" id="width" min="10" max="100" value="45" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="length">length</label>
+                      <input class = "slider" type="range" id="length" min="10" max="100" value="85" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="rotation">rotation</label>
+                      <input class = "slider" type="range" id="rotation" min="-44" max="45" value="15" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="SouthContextOffset">SouthContextOffset</label>
+                      <input class = "slider" type="range" id="SouthContextOffset" min="1" max="100" value="50" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="EastContextOffset">EastContextOffset</label>
+                      <input class = "slider" type="range" id="EastContextOffset" min="1" max="100" value="70" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="NorthContextOffset">NorthContextOffset</label>
+                      <input class = "slider" type="range" id="NorthContextOffset" min="1" max="100" value="90" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="WestContextOffset">WestContextOffset</label>
+                      <input class = "slider" type="range" id="WestContextOffset" min="1" max="100" value="76" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="SouthContextHeight">SouthContextHeight</label>
+                      <input class = "slider" type="range" id="SouthContextHeight" min="1" max="150" value="150" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="EastContextHeight">EastContextHeight</label>
+                      <input class = "slider" type="range" id="EastContextHeight" min="1" max="150" value="40" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="NorthContextHeight">NorthContextHeight</label>
+                      <input class = "slider" type="range" id="NorthContextHeight" min="1" max="150" value="100" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="WestContextHeight">WestContextHeight</label>
+                      <input class = "slider" type="range" id="WestContextHeight" min="1" max="150" value="20" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="SouthShadingDepth">SouthShadingDepth</label>
+                      <input class = "slider" type="range" id="SouthShadingDepth" min="0.01" max="3" value="3" step="0.01">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="EastShadingDepth">EastShadingDepth</label>
+                      <input class = "slider" type="range" id="EastShadingDepth" min="0.01" max="3" value="1" step="0.01">
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <label class = "sliderLabel" for ="NorthShadingDepth">NorthShadingDepth</label>
+                      <input class = "slider" type="range" id="NorthShadingDepth" min="0.01" max="3" value="0.5" step="0.01">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="WestShadingDepth">WestShadingDepth</label>
+                      <input class = "slider" type="range" id="WestShadingDepth" min="0.01" max="3" value="2" step="0.01">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="NorthGlazingRatio">NorthGlazingRatio</label>
+                      <input class = "slider" type="range" id="NorthGlazingRatio" min="0" max="1" value="0.9" step="0.1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="WestGlazingRatio">WestGlazingRatio</label>
+                      <input class = "slider" type="range" id="WestGlazingRatio" min="0" max="1" value="0.6" step="0.1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="SouthGlazingRatio">SouthGlazingRatio</label>
+                      <input class = "slider" type="range" id="SouthGlazingRatio" min="0" max="1" value="0.2" step="0.1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="EastGlazingRatio">EastGlazingRatio</label>
+                      <input class = "slider" type="range" id="EastGlazingRatio" min="0" max="1" value="0.9" step="0.1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="NorthWindowHeight">NorthWindowHeight</label>
+                      <input class = "slider" type="range" id="NorthWindowHeight" min="0" max="10" value="3" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="WestWindowHeight">WestWindowHeight</label>
+                      <input class = "slider" type="range" id="WestWindowHeight" min="0" max="10" value="3" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="SouthWindowHeight">SouthWindowHeight</label>
+                      <input class = "slider" type="range" id="SouthWindowHeight" min="0" max="10" value="3" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="EastWindowHeight">EastWindowHeight</label>
+                      <input class = "slider" type="range" id="EastWindowHeight" min="0" max="10" value="3" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="NorthWindowSill">NorthWindowSill</label>
+                      <input class = "slider" type="range" id="NorthWindowSill" min="0" max="5" value="2" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="WestWindowSill">WestWindowSill</label>
+                      <input class = "slider" type="range" id="WestWindowSill" min="0" max="5" value="2" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="SouthWindowSill">SouthWindowSill</label>
+                      <input class = "slider" type="range" id="SouthWindowSill" min="0" max="5" value="2" step="1">
+                    </div>
+                    <div>
+                      <label class = "sliderLabel" for ="EastWindowSill">EastWindowSill</label>
+                      <input class = "slider" type="range" id="EastWindowSill" min="0" max="5" value="2" step="1">
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <results>
+                    <div id="sDA" > Slide to update sDA</div>
+                    <div id="UDI" > Slide to update UDI</div>
+                    <div id="ASE" > Slide to update ASE</div>
+                   </results>
+                  </div>
+
+                <div>
+                  <button class = "btn" id="downloadButton" disabled>.3dm</button>
+                  <button class = "btn" href="dayLite.gh" download="dayLite.gh.html">.html</button>
+              </div>
+            </div>
+        </div>
+
+        <script type="module" src="./script.js"></script>
+
+    </body>
+</html>
