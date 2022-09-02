@@ -25,7 +25,7 @@ DayLite responds to the issues with daylight analysis tools, which require an in
 Ladybug & Honeybee
 
 ## workflow diagram
-<img src="wokflow.png"alt="wokflow">
+![workflow](https://github.com/ama-gio/daylite/blob/main/wokflow.png?raw=true)
 
 ## author
 <p>Amanda Gioia</p>
