@@ -22,11 +22,22 @@ DayLite responds to the issues with daylight analysis tools, which require an in
 <p>3. Annual Sunlight Exposure (ASE)</p>
 
 ## plugins
-Ladybug & Honeybee
-Pufferfish
+<p>3Ladybug & Honeybee</p>
+<p>3Pufferfish</p>
 
 ## workflow diagram
 ![workflow](https://github.com/ama-gio/daylite/blob/main/wokflow.png?raw=true)
+
+## instructions
+<p>The machineLearning folder</p>
+<p>1. roomsGenerator.gh =  grasshopper script used to produce a generative dataset of rooms</p>
+<p>2. daylighting_Macedonia.gh = grasshopper script used to conduct a Daylighting Analysis on each model and record the results to a csv file.</p>
+<p>3. roomDaylightData_Training_split.csv = Resulting csv dataset.</p>
+<p>4. CleaningData.ipynb = preparing data for Machine Learning</p>
+<p>5. PCA_LinRegress_ANN.ipynb = Data analysis and Machine Learning</p>
+<p>6. Hops_DaylightPrediction.ipynb = runs flask ngrok for the machine learning model predications in grasshopper.</p>
+<p>7. hops.gh = Using the grasshopper hops server and flask ngrok, the machine learning model can be brought back into grasshopper and tested on new models.</p>
+<p>The rest of the folders are copied from https://github.com/mcneel/compute.rhino3d.appserver for deploying the web application. See the src>files for the grasshopper file and src>examples for the html and js</p>
 
 ## author
 <p>Amanda Gioia</p>
