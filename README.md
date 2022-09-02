@@ -22,8 +22,8 @@ DayLite responds to the issues with daylight analysis tools, which require an in
 <p>3. Annual Sunlight Exposure (ASE)</p>
 
 ## plugins
-<p>3Ladybug & Honeybee</p>
-<p>3Pufferfish</p>
+<p>Ladybug & Honeybee</p>
+<p>Pufferfish</p>
 
 ## workflow diagram
 ![workflow](https://github.com/ama-gio/daylite/blob/main/wokflow.png?raw=true)
@@ -37,7 +37,8 @@ DayLite responds to the issues with daylight analysis tools, which require an in
 <p>5. PCA_LinRegress_ANN.ipynb = Data analysis and Machine Learning</p>
 <p>6. Hops_DaylightPrediction.ipynb = runs flask ngrok for the machine learning model predications in grasshopper.</p>
 <p>7. hops.gh = Using the grasshopper hops server and flask ngrok, the machine learning model can be brought back into grasshopper and tested on new models.</p>
-<p>The rest of the folders are copied from https://github.com/mcneel/compute.rhino3d.appserver for deploying the web application. See the src>files for the grasshopper file and src>examples for the html and js</p>
+<p>The rest of the folders are copied from https://github.com/mcneel/compute.rhino3d.appserver for deploying the web application. </p>
+<p>See the folders src>files for the grasshopper file, and src>examples for the html and javascript files.</p>
 
 ## author
 <p>Amanda Gioia</p>
